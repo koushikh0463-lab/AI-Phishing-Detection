@@ -1,8 +1,27 @@
-# AI-Powered Phishing Detection System
+# 🔐 AI-Powered Phishing Detection System
 
-A working end-to-end prototype: Flask web app + ML model that scores a URL as
-Legitimate or Phishing based on structural features of the URL string, with
-a risk score, plain-English reasons, and a small SOC-style dashboard.
+A machine-learning web app that analyzes any URL and predicts whether it's
+**Legitimate** or **Phishing** — based purely on the structure of the URL
+itself (no page is ever visited). It returns a 0–100% risk score, plain-English
+reasons for the verdict, and a small SOC-style dashboard tracking every scan.
+
+**🔗 Live demo:** https://ai-phishing-detection-ntud.onrender.com/
+*(free-tier hosting — first load after inactivity can take 20–30 seconds to wake up)*
+
+## Features
+
+- **20-feature URL analysis** — length, HTTPS, IP-address hosts, `@` tricks,
+  suspicious keywords, hyphen/subdomain counts, risky TLDs, link shorteners, and more
+- **Model comparison** — trains and evaluates Logistic Regression, Random Forest,
+  and (optionally) XGBoost, picks the best by F1-score
+- **Risk score + explanation** — not just a label, but *why* a URL was flagged
+- **Live dashboard** — total scans, phishing detection rate, recent scan history
+- **No page fetching** — every check is done offline from the URL text alone, so
+  scanning a suspicious link is safe
+
+## Tech stack
+
+`Python` · `Flask` · `scikit-learn` · `pandas` · `HTML/CSS/JS` · deployed on `Render`
 
 ## What's actually in this project
 
@@ -44,9 +63,11 @@ AI-Phishing-Detection/
    domain. Say this explicitly as a limitation in your report; it's realistic
    and reviewers will respect it more than an unqualified accuracy claim.
 
-## Setup
+## Run it locally
 
 ```bash
+git clone https://github.com/koushikh0463-lab/AI-Phishing-Detection.git
+cd AI-Phishing-Detection
 pip install -r requirements.txt
 python3 generate_dataset.py   # only needed once, or to regenerate
 python3 train.py              # trains models, prints comparison, saves best
@@ -85,3 +106,17 @@ Open http://127.0.0.1:5000 — paste a URL, hit Analyze. Switch to the
   `save_history`/`load_history` functions in `app.py` are the only places
   that need to change.
 - **Charts**: pipe the `/dashboard` JSON into Chart.js on the dashboard tab.
+
+## Deployment
+
+Deployed on [Render](https://render.com) (free tier) using:
+
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:** `gunicorn app:app`
+
+Any push to the `main` branch on GitHub automatically triggers a redeploy.
+
+## License
+
+This project is for educational purposes as part of an MCA coursework
+submission. Feel free to fork and extend it.
