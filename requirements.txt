@@ -3,5 +3,6 @@ pandas
 numpy
 scikit-learn
 joblib
+gunicorn
 # optional, for the XGBoost model comparison in train.py:
 # xgboost
