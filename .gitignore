@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+model/history.json
+.venv/
+venv/
+*.log
+.vscode/
+.DS_Store
